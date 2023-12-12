@@ -9,12 +9,12 @@ module.exports = {
 }
 
 async function findPosts(user_id) {
-  const rows = await db('posts a p')
+  const rows = await db('posts as p')
     .select('p.id as post_id', 'contents', 'username')
     .join('users as u', 'p.user_id', '=', 'u.id')
     .where('id', user_id)
     
-    console.log(rows)
+    
     return rows
   /*
     Implement so it resolves this structure:
@@ -30,8 +30,24 @@ async function findPosts(user_id) {
   */
 }
 
-function find() {
-  return db('users')
+async function find() {
+  const rows = await db('users as u')
+    .leftJoin('posts as p', 'u.id', '=', 'p.user_id')
+    .count('p.id as post_count')
+    .groupBy('u.id')
+    .select('u.id as user_id', 'username')
+    
+  console.log(rows)
+  return rows
+
+//   select 
+//     u.id as user_id,
+//     username,
+//     count(p.id) as post_count
+// from users as u
+// left join posts as p
+//     on u.id = p.user_id
+// group by u.id;
   /*
     Improve so it resolves this structure:
 
