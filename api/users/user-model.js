@@ -16,6 +16,14 @@ async function findPosts(user_id) {
     
     
     return rows
+
+    //select
+    // p.id as post_id,
+    // contents,
+    // username
+    //from posts as p
+    //join users as u
+    //  on p.user_id = u.id;
   /*
     Implement so it resolves this structure:
 
@@ -37,7 +45,6 @@ async function find() {
     .groupBy('u.id')
     .select('u.id as user_id', 'username')
     
-  console.log(rows)
   return rows
 
 //   select 
